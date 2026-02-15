@@ -53,7 +53,7 @@ function handleSubmit(event) {
       
    })
    .catch(error => {
-    concole.log(error);
+    console.log(error);
     iziToast.error({
             message: "Сталася помилка при запиті",
             position: "topRight",
