@@ -11,17 +11,62 @@ import { getImagesByQuery } from "./js/pixabay-api.js";
 import { createGallery, clearGallery, showLoader, hideLoader } from "./js/render-functions.js";
 
 const form = document.querySelector(".form");
-const input = document.querySelector("input")
-const button = document.querySelector("button");
+const input = form.querySelector("input")
 const gallery = document.querySelector(".gallery");
 
-// 🧪 ТЕСТУВАННЯ - викликаєте тут!
-console.log("🧪 Тестуємо запит до API...");
-getImagesByQuery("cats") // 👈 ТУТ ВИКЛИКАЄТЕ для тесту
-    .then(data => {
-        console.log("📦 Отримано фото:", data.hits.length);
-        createGallery(data.hits); // 👈 ТУТ СТВОРЮЄТЬСЯ ГАЛЕРЕЯ
-    })
-    .catch(error => {
-        console.error("❌ Помилка:", error);
-    });
+
+
+form.addEventListener("submit", handleSubmit);
+
+function handleSubmit(event) {
+    event.preventDefault();
+
+    
+    const query = input.value.trim().toLowerCase();
+    if (!query){
+        iziToast.error({
+            message:`Введіть будь ласка щось`,
+            position: 'topRight',
+        })
+        return
+    }
+     // Очищаємо галерею перед новим пошуком
+    clearGallery();
+     // ПОКАЗУЄМО крутилку
+    showLoader();
+
+
+   setTimeout(() => {
+    getImagesByQuery(query)
+   .then(data => {
+        const images= data.hits;
+     if (images.length === 0){
+        iziToast.error({
+            message: `Sorry, there are no images matching your search query. Please try again!`,
+            position: 'topRight',
+        })
+        return;
+
+     } 
+     console.log("Знайдено зображень:", images.length);
+     createGallery(images);
+      
+   })
+   .catch(error => {
+    concole.log(error);
+    iziToast.error({
+            message: "Сталася помилка при запиті",
+            position: "topRight",
+        });
+   })
+    .finally(() => {
+            // ХОВАЄМО крутилку в будь-якому випадку
+            hideLoader();
+            form.reset();  // очищаємо інпут завжди
+        });
+    }, 3000);
+   
+}
+
+
+
