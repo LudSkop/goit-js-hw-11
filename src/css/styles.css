@@ -10,39 +10,58 @@
 @import url('./container.css');
 @import url('./animations.css');
 
-
-
 .form {
-    width: 50%;
-    max-width: 500px;
-    background: gainsboro;
-    padding: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
     border-radius: 15px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    background: white;
+    margin: 0 auto;
 }
 
 .form label {
-    display: block;
-    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
 }
 
-.form input[type="text"] {
+.label-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Контейнер для інпута і кнопки */
+.input-group {
+    display: flex;
+    gap: 8px;
     width: 100%;
-    padding: 12px 15px;
+}
+
+/* Інпут займає більше місця */
+.input-group input {
+    flex: 1; /* 👈 Інпут розтягується */
+    padding: 12px;
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-sizing: border-box;
 }
 
-.form input[type="text"]:focus {
+.input-group input:focus {
     outline: none;
     border-color: #4CAF50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
 }
 
-.form button {
-    width: 100%;
-    padding: 12px;
+/* Кнопка фіксованої ширини */
+.input-group button {
+    padding: 12px 24px;
     font-size: 16px;
     font-weight: bold;
     color: white;
@@ -50,12 +69,14 @@
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    margin-bottom: 50px;
+    white-space: nowrap; /* 👈 Текст в один рядок */
 }
 
-.form button:hover {
+.input-group button:hover {
     background: #45a049;
 }
+
+
 
 .gallery {
     display: grid;
@@ -85,7 +106,7 @@
 .stats p {
     margin: 5px 0;
 }
-/* Лоадер прихований за замовчуванням 
+/* 
 .loader {
     display: none;
     width: 50px;
@@ -102,14 +123,14 @@
     display: block;
 }
 
-/* Анімація обертання 
+ 
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }.  
 
 .loader{
-    display: block;
+    display: none;
     position: relative;
     height: 32px;
     width: 200px;
@@ -118,6 +139,9 @@
     color: red;
     overflow: hidden;
   }
+    .loader.is-visible {
+    display: block;
+}
   .loader::before{
     content: '';
     background: red;
@@ -165,7 +189,8 @@
     98% { content: "98%"}
     99% { content: "99%"}
     100% { content: "100%"}
-  }*/
+  } */
+ 
   
   .loader {
   font-size: 48px;
