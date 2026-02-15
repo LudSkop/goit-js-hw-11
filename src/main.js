@@ -25,7 +25,7 @@ function handleSubmit(event) {
     const query = input.value.trim().toLowerCase();
     if (!query){
         iziToast.error({
-            message:`Введіть будь ласка щось`,
+            message:`This field cannot be empty. Please fill out this field.`,
             position: 'topRight',
         })
         return
